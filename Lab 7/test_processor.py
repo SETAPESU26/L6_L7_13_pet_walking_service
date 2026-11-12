@@ -1,17 +1,33 @@
 from hypothesis import given, strategies as st
-from processor import parse_walk_schedule, compute_pace_per_pet, lookup_temperament_surcharge
+from processor import (
+    parse_walk_schedule,
+    compute_pace_per_pet,
+    lookup_temperament_surcharge,
+)
 
-@given(st.text() | st.none())
+
+@given(st.text() | st.none() | st.integers() | st.floats() | st.booleans())
 def test_parse_walk_schedule_no_crash(s):
-    # To-Do:Using try and except complete this function.
-    pass
+    try:
+        result = parse_walk_schedule(s)
+        assert isinstance(result, str)
+    except Exception as e:
+        assert False, f"parse_walk_schedule crashed with {type(e).__name__}: {e} on input {s!r}"
 
-@given(st.text() | st.none())
+
+@given(st.text() | st.none() | st.integers() | st.floats() | st.booleans())
 def test_compute_pace_per_pet_safe(s):
-    # To-Do:Using try and except complete this function.
-    pass
+    try:
+        result = compute_pace_per_pet(s)
+        assert isinstance(result, (float, str))
+    except Exception as e:
+        assert False, f"compute_pace_per_pet crashed with {type(e).__name__}: {e} on input {s!r}"
 
-@given(st.text() | st.none())
+
+@given(st.text() | st.none() | st.integers() | st.floats() | st.booleans())
 def test_lookup_temperament_surcharge_safe(s):
-    # To-Do:Using try and except complete this function.
-    pass
+    try:
+        result = lookup_temperament_surcharge(s)
+        assert isinstance(result, (float, str))
+    except Exception as e:
+        assert False, f"lookup_temperament_surcharge crashed with {type(e).__name__}: {e} on input {s!r}"
